@@ -2,15 +2,17 @@
 import './App.css'
 import Footer from './components/Footer'
 import Navbar from './components/Navbar'
-import HomePage from './pages/HomePage'
+import PlayerBar from './components/PlayerBar'
+import AlbumPage from './pages/AlbumPage'
 
 function App() {
 
   return (
-    <main className=''>
+    <main className='min-h-screen pb-24'>
       <Navbar />
-      <HomePage />
+      <AlbumPage />
       <Footer />
+      <PlayerBar />
     </main>
   )
 }
