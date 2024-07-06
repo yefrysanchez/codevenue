@@ -1,14 +1,12 @@
-
 interface AlbumProps {
-    title: string;
-    img: string;
-
+  title: string;
+  img: string;
 }
 
 const Album: React.FC<AlbumProps> = ({ title, img }) => {
   return (
-    <a className="group" href="">
-      <div className="max-h-68 max-w-68 md:max-h-60 md:max-w-60 mb-2 aspect-square rounded-lg overflow-hidden relative group">
+    <div>
+      <div className="group max-h-68 max-w-68 md:max-h-60 md:max-w-60 mb-2 aspect-square rounded-lg overflow-hidden relative group">
         <img
           className="h-full w-full object-cover group-hover:scale-105 transition"
           src={img}
@@ -25,7 +23,7 @@ const Album: React.FC<AlbumProps> = ({ title, img }) => {
       <p className="text-gray-400 leading-tight">
         {Math.floor(Math.random() * 10 + 1)} Tracks
       </p>
-    </a>
+    </div>
   );
 };
 

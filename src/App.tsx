@@ -1,20 +1,18 @@
-
-import './App.css'
-import Footer from './components/Footer'
-import Navbar from './components/Navbar'
-import PlayerBar from './components/PlayerBar'
-import AlbumPage from './pages/AlbumPage'
+import "./App.css";
+import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
+import PlayerBar from "./components/PlayerBar";
+import AppRouter from "./router/AppRouter";
 
 function App() {
-
   return (
-    <main className='min-h-screen pb-24'>
+    <main className="min-h-screen pb-24">
       <Navbar />
-      <AlbumPage />
+      <AppRouter />
       <Footer />
       <PlayerBar />
     </main>
-  )
+  );
 }
 
-export default App
+export default App;

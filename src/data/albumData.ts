@@ -1,3 +1,4 @@
+
 export const genres = [
     {
       title: "Hip Hop",
