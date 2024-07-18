@@ -6,7 +6,7 @@ const Navbar = () => {
           <div>
             <i className="fa-solid fa-headphones text-purple-700"></i>
           </div>
-          <div>
+          <div className="text-2xl">
             <h1>CodeVenue</h1>
           </div>
         </a>

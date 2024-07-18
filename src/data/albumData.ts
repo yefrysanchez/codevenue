@@ -25,3 +25,5 @@ export const genres = [
       img: "./jazz.jpg",
     },
   ];
+
+  
