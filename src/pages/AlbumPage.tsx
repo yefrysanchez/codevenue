@@ -3,18 +3,21 @@ import AlbumVynil from "../components/AlbumVynil";
 import PlayBtn from "../components/PlayBtn";
 import Shuffle from "../components/Shuffle";
 import Tracklist from "../components/Tracklist";
-import { genres } from "../data/trackData";
+import { genres } from "../data/albumData";
 import { useMusicStore } from "../store/store";
+import { songs } from "../data/trackData";
 
 
 const AlbumPage = () => {
   const { albumName } = useParams<{ albumName: string }>();
 
   const albumData = genres.find(
-    (genre) => genre.genre.replace(" ", "").toLocaleLowerCase() === albumName
+    (genre) => genre.title.replace(" ", "").toLocaleLowerCase() === albumName
   );
-  //Zustand////////////////////////////////////
 
+  const songData = songs.filter(song => song.genre === albumData?.title)
+  
+  //Zustand////////////////////////////////////
   const { isPlaying } = useMusicStore((state) => state);
 
   //Zustand////////////////////////////////////
@@ -34,8 +37,8 @@ const AlbumPage = () => {
         <div className="relative h-full md:w-full md:mr-[74px]">
           <div className="z-20 h-full w-full pr-[75px] md:pr-0">
             <AlbumVynil
-              title={albumData?.genre}
-              img={albumData?.coverImageUrl}
+              title={albumData?.title}
+              img={albumData?.img}
             />
           </div>
 
@@ -55,10 +58,10 @@ const AlbumPage = () => {
         <div className="md:self-end md:min-w-80">
           <div className="my-8">
             <h1 className="font-bold text-6xl transition leading-tight tracking-tighter">
-              {albumData?.genre || 'Unknown Genre'}
+              {albumData?.title || 'Unknown Genre'}
             </h1>
             <p className="text-gray-400 leading-tight tracking-tighter text-3xl">
-              {albumData?.song.length || 0} Tracks
+              {songData.length || 0} Tracks
             </p>
           </div>
           <div className="flex gap-4">
@@ -68,7 +71,7 @@ const AlbumPage = () => {
         </div>
       </div>
       <div>
-        <Tracklist songs={albumData?.song || []} />
+        <Tracklist songs={songData} />
       </div>
     </main>
   );

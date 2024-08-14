@@ -1,9 +1,15 @@
+import { songs } from "../data/trackData";
+
+
 interface AlbumProps {
   title: string;
   img: string;
 }
 
 const Album: React.FC<AlbumProps> = ({ title, img }) => {
+
+const tracksCount = songs.filter(song => song.genre === title)
+  
   return (
     <div>
       <div className="group max-h-68 max-w-68 md:max-h-60 md:max-w-60 mb-2 aspect-square rounded-lg overflow-hidden relative group">
@@ -21,7 +27,7 @@ const Album: React.FC<AlbumProps> = ({ title, img }) => {
         {title}
       </p>
       <p className="text-gray-400 leading-tight">
-        {Math.floor(Math.random() * 10 + 1)} Tracks
+        {tracksCount.length} Tracks
       </p>
     </div>
   );

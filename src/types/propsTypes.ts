@@ -1,7 +1,6 @@
 export interface Song {
     id: number;        // Unique identifier for the song
     title: string;      // Title of the song
-    artist: string;     // Artist of the song
     genre: string;      // Genre of the song
     duration: number;  // Duration of the song in seconds
     fileUrl: string;    // URL or path to the song file

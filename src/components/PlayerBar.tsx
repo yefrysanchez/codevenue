@@ -46,10 +46,12 @@ const PlayerBar: React.FC = () => {
   };
 
 //Store audio ref in zustand to pass it to ohers components
-  useEffect(() => {
-    audioRef.current.volume = 0.3
+useEffect(() => {
+  if (audioRef.current) {
+    audioRef.current.volume = 0.3;
     setAudioRefStore(audioRef);
-  }, [audioRef]);
+  }
+}, [setAudioRefStore]);
 
   useEffect(() => {
     const audio = audioRef.current;

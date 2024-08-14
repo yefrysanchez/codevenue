@@ -21,10 +21,10 @@ const Tracklist: React.FC<TracklistProps> = ({ songs }) => {
 
   ///////////////////////////
   const notify = (action:string) => toast(action);
-  const removeDuplicates = (song: Track) => {
+  const handlePlaylist = (song: Track) => {
     if (playlist.find((e) => e.id === song.id)) {
       removeTrackFromPlaylist(song.id);
-      notify("Son removed the playlist");
+      notify("Song removed the playlist");
     } else {
       addTrackToPlaylist(song);
       notify("Song added to the playlist");
@@ -63,7 +63,7 @@ const Tracklist: React.FC<TracklistProps> = ({ songs }) => {
           >
             <li className="text-lg font-semibold text-gray-600 flex gap-4">
               <span className="font-light">{i + 1}</span>
-              <span onClick={() => removeDuplicates(song)}>
+              <span onClick={() => handlePlaylist(song)}>
                 {playlist.find((id) => id.id === song.id) ? (
                   <i className="fa-solid fa-heart cursor-pointer"></i>
                 ) : (
