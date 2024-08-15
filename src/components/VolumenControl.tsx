@@ -17,6 +17,7 @@ const VolumeControl: React.FC = () => {
     <div className="flex items-center">
       <label htmlFor="volume-slider" className="mr-2">{volume < 0.5 ? <i className="fa-solid fa-volume-low"></i>: <i className="fa-solid fa-volume-high"></i>}</label>
       <input
+      aria-label='volume'
         id="volume-slider"
         type="range"
         min="0"

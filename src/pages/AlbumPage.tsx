@@ -57,9 +57,9 @@ const AlbumPage = () => {
         {/* Top CTA Buttoms */}
         <div className="md:self-end md:min-w-80">
           <div className="my-8">
-            <h1 className="font-bold text-6xl transition leading-tight tracking-tighter">
+            <h2 className="font-bold text-6xl transition leading-tight tracking-tighter">
               {albumData?.title || 'Unknown Genre'}
-            </h1>
+            </h2>
             <p className="text-gray-400 leading-tight tracking-tighter text-3xl">
               {songData.length || 0} Tracks
             </p>

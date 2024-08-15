@@ -1,0 +1,17 @@
+# robots.txt for CodeVenue
+
+# Allow all web crawlers access to the entire site
+User-agent: *
+Disallow: /private/
+Disallow: /admin/
+Disallow: /login/
+
+# Allow specific bots if needed (example)
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Sitemap location
+Sitemap: https://codevenue.pages.dev/

@@ -88,6 +88,7 @@ useEffect(() => {
       </div>
       <div className="flex-1 mx-4">
         <input
+        aria-label="player bar"
           type="range"
           min="0"
           max={duration}

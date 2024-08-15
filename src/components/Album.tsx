@@ -26,7 +26,7 @@ const tracksCount = songs.filter(song => song.genre === title)
       <p className="group-hover:text-purple-700 font-bold transition leading-tight">
         {title}
       </p>
-      <p className="text-gray-400 leading-tight">
+      <p className="text-gray-600 leading-tight">
         {tracksCount.length} Tracks
       </p>
     </div>
