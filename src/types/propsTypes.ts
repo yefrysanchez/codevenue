@@ -17,9 +17,8 @@ export interface Track {
 }
 
 export interface Genre {
-  genre: string;
-  coverImageUrl: string;
-  song: Track[]; // Array of Track objects
+  title: string;
+  img: string;
 }
 
 export interface MusicState {

@@ -66,6 +66,7 @@ useEffect(() => {
         audio.removeEventListener("loadedmetadata", updateDuration);
       };
     }
+    
   }, [audioRef, currentTrack]);
 
   return (

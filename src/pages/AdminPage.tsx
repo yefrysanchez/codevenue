@@ -1,37 +1,50 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const AdminPage = () => {
-  const [song, setSong] = useState({
-    title: "",
-    genre: "",
-    duration: "",
-    fileUrl: "",
-  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const notify = () => toast("Song added");
   const badNotify = () => toast("Wrong Password");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (passwordRef.current?.value !== import.meta.env.VITE_ADMIN_PASSWORD) {
       badNotify();
       return;
-    } else {
-      setSong({
-        title: titleRef.current?.value ?? "",
-        genre: genreRef.current?.value ?? "",
-        duration: durationRef.current?.value ?? "",
-        fileUrl: fileUrlRef.current?.value ?? "",
+    }
+
+    const newSong = {
+      title: titleRef.current?.value ?? "",
+      genre: genreRef.current?.value ?? "",
+      duration: durationRef.current?.value ?? "",
+      fileUrl: fileUrlRef.current?.value ?? "",
+    };
+
+    try {
+      setIsSubmitting(true);
+
+      const res = await fetch(import.meta.env.VITE_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newSong),
       });
+
+      if (!res.ok) {
+        throw new Error("Network response was not ok");
+      }
+
       notify();
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
-
-  useEffect(() => {
-    //send song to DB
-  }, [song]);
 
   const passwordRef = useRef<HTMLInputElement>(null);
   const titleRef = useRef<HTMLInputElement>(null);
@@ -45,17 +58,22 @@ const AdminPage = () => {
       <form
         onSubmit={handleSubmit}
         className="flex flex-col gap-2"
-        action=""
         method="post"
       >
         <input
+          required
           ref={titleRef}
           className="border p-2 rounded-lg"
           placeholder="Title"
           type="text"
-          name="Title"
+          name="title"
         />
-        <select ref={genreRef} name="genres">
+        <select
+          required
+          className="border p-2 rounded-xl"
+          ref={genreRef}
+          name="genre"
+        >
           <option value="Hip Hop">Hip Hop</option>
           <option value="Pop">Pop</option>
           <option value="Chill House">Chill House</option>
@@ -65,20 +83,23 @@ const AdminPage = () => {
         </select>
 
         <input
+          required
           ref={durationRef}
           className="border p-2 rounded-lg"
           placeholder="Duration"
-          type="number"
+          type="text" // Changed to text to handle non-integer durations
           name="duration"
         />
         <input
+          required
           ref={fileUrlRef}
           className="border p-2 rounded-lg"
-          placeholder="FileUrl"
+          placeholder="File URL"
           type="text"
           name="fileUrl"
         />
         <input
+          required
           ref={passwordRef}
           className="border p-2 rounded-lg"
           type="password"
@@ -86,9 +107,11 @@ const AdminPage = () => {
           placeholder="Password"
         />
         <input
-          className="bg-gray-400 p-2 cursor-pointer rounded-lg text-white font-bold text-xl hover:bg-purple-700 transition "
+          required
+          className="bg-gray-400 p-2 cursor-pointer rounded-lg text-white font-bold text-xl hover:bg-purple-700 transition"
           type="submit"
           value="Add Song"
+          disabled={isSubmitting} // Disable the submit button while submitting
         />
       </form>
     </main>
@@ -101,6 +124,6 @@ export interface Track {
   id: number;
   title: string;
   genre: string;
-  duration: number;
+  duration: number; // Duration might need conversion to number
   fileUrl: string;
 }

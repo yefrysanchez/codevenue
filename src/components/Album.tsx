@@ -1,4 +1,5 @@
-import { songs } from "../data/trackData";
+import { useEffect, useState } from "react";
+
 
 
 interface AlbumProps {
@@ -7,6 +8,28 @@ interface AlbumProps {
 }
 
 const Album: React.FC<AlbumProps> = ({ title, img }) => {
+  const [songs, setSongs] = useState([]);
+
+  //Fetching////////////////////////////////////
+  
+  const fetchSongs = async () => {
+    const url = import.meta.env.VITE_URL;
+    try {
+      const res = await fetch(url);
+      if (!res.ok) {
+        throw new Error(`Response status: ${res.status}`);
+      }
+      const json = await res.json();
+      setSongs(json);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+  useEffect(() => {
+    fetchSongs();
+  }, []);
+
 
 const tracksCount = songs.filter(song => song.genre === title)
   

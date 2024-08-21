@@ -5,22 +5,39 @@ import Shuffle from "../components/Shuffle";
 import Tracklist from "../components/Tracklist";
 import { genres } from "../data/albumData";
 import { useMusicStore } from "../store/store";
-import { songs } from "../data/trackData";
 
+import { useEffect, useState } from "react";
 
 const AlbumPage = () => {
-  const { albumName } = useParams<{ albumName: string }>();
-
-  const albumData = genres.find(
-    (genre) => genre.title.replace(" ", "").toLocaleLowerCase() === albumName
+  const [songs, setSongs] = useState([]);
+  const { genreName } = useParams<{ genreName: string }>();
+  const genreData = genres.find(
+    (genre) => genre.title.replace(" ", "").toLocaleLowerCase() === genreName
   );
+  const songData = songs.filter((song) => song.genre === genreData?.title);
 
-  const songData = songs.filter(song => song.genre === albumData?.title)
-  
   //Zustand////////////////////////////////////
   const { isPlaying } = useMusicStore((state) => state);
 
-  //Zustand////////////////////////////////////
+  //Fetching////////////////////////////////////
+
+  const fetchSongs = async () => {
+    const url = import.meta.env.VITE_URL;
+    try {
+      const res = await fetch(url);
+      if (!res.ok) {
+        throw new Error(`Response status: ${res.status}`);
+      }
+      const json = await res.json();
+      setSongs(json);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchSongs();
+  }, []);
 
   return (
     <main className="mt-8 max-w-6xl mx-auto overflow-hidden">
@@ -36,10 +53,7 @@ const AlbumPage = () => {
       <div className="mb-12 px-6 md:flex md:max-h-[400px] md:w-full   w-full">
         <div className="relative h-full md:w-full md:mr-[74px]">
           <div className="z-20 h-full w-full pr-[75px] md:pr-0">
-            <AlbumVynil
-              title={albumData?.title}
-              img={albumData?.img}
-            />
+            <AlbumVynil title={genreData?.title} img={genreData?.img} />
           </div>
 
           {/* CD Image */}
@@ -58,7 +72,7 @@ const AlbumPage = () => {
         <div className="md:self-end md:min-w-80">
           <div className="my-8">
             <h2 className="font-bold text-6xl transition leading-tight tracking-tighter">
-              {albumData?.title || 'Unknown Genre'}
+              {genreData?.title || "Unknown Genre"}
             </h2>
             <p className="text-gray-400 leading-tight tracking-tighter text-3xl">
               {songData.length || 0} Tracks
