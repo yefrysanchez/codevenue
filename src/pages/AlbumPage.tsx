@@ -7,9 +7,16 @@ import { genres } from "../data/albumData";
 import { useMusicStore } from "../store/store";
 
 import { useEffect, useState } from "react";
+import { Track } from "../types/propsTypes";
 
 const AlbumPage = () => {
-  const [songs, setSongs] = useState([]);
+  const [songs, setSongs] = useState<Track[]>([{
+    id: 0,
+    title: "",
+    genre: "",
+    duration: 0,
+    fileUrl: "",
+  }]);
   const { genreName } = useParams<{ genreName: string }>();
   const genreData = genres.find(
     (genre) => genre.title.replace(" ", "").toLocaleLowerCase() === genreName

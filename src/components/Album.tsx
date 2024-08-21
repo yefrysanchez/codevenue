@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Track } from "../types/propsTypes";
 
 
 
@@ -8,7 +9,13 @@ interface AlbumProps {
 }
 
 const Album: React.FC<AlbumProps> = ({ title, img }) => {
-  const [songs, setSongs] = useState([]);
+  const [songs, setSongs] = useState<Track[]>([{
+    id: 0,
+    title: "",
+    genre: "",
+    duration: 0,
+    fileUrl: "",
+  }]);
 
   //Fetching////////////////////////////////////
   
